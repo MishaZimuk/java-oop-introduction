@@ -22,9 +22,6 @@ public void setPercentPay(int percentPay) {
 }
 @Override
 public int computePay() {
-	return super.computePay() + payForSales();
-}
-private int payForSales() {
-	return this.sales*this.percentPay/100;
+	return super.computePay() + this.sales*this.percentPay/100;
 }
 }
