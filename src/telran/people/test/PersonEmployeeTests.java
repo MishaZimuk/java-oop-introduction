@@ -88,5 +88,85 @@ class PersonEmployeeTests {
 		salesPerson.setPercentPay(ANOTHER_PERCENT_PAY);
 		assertEquals(ANOTHER_SALES_PERSON_SALARY, salesPerson.computePay());
 	}
-
+	@Test
+	void wrongBirthYearTest () {
+		boolean flException = false;
+		try {
+			new SalesPerson(123, 2018, "sp@com",
+					1000, 100, 50);
+			
+		} catch (IllegalArgumentException e) {
+			flException = true;
+			System.out.println(e.getMessage());
+		}
+		assertTrue(flException);
+		try {
+			new Employee(100, 1913, ANOTHER_EMAIL, BASIC_SALARY);
+		} catch (IllegalArgumentException e) {
+			flException = true;
+			System.out.println(e.getMessage());
+		}
+	}
+	@Test
+	void wrongEmail () {
+		boolean isException = false;
+		try {
+			new SalesPerson(123, 1997, "@com",
+					1000, 100, 50);
+			
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+		assertTrue(isException);
+		isException = false;
+		try {
+			new Employee(100, 1990, "misha@gmail.com", BASIC_SALARY);
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+	}
+	@Test
+	void wrongBasicSalaru () {
+		boolean isException = false;
+		try {
+			new SalesPerson(123, 1997, "misha@com",
+					50, 100, 50);
+			
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+		assertTrue(isException);
+		isException = false;
+		try {
+			new Employee(100, 1990, "misha@gmail.com", BASIC_SALARY);
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+		assertFalse(isException);
+	}
+	@Test
+	void wrongPercentPay () {
+		boolean isException = false;
+		try {
+			new SalesPerson(123, 1997, "misha@com",
+					1000, 100, 300);
+			
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+		assertTrue(isException);
+		isException = false;
+		try {
+			new SalesPerson(100, 1990, "misha@gmail.com", BASIC_SALARY,ANOTHER_SALES, ANOTHER_PERCENT_PAY);
+		} catch (IllegalArgumentException e) {
+			isException = true;
+			System.out.println(e.getMessage());
+		}
+		assertFalse(isException);
+	}
 }
