@@ -2,9 +2,7 @@ package telran.text;
 
 import java.util.Arrays;
 
-import telran.people.Employee;
-import telran.people.comparators.PersonAgeComparator;
-import telran.text.comparators.*;
+import telran.text.comparators.StringsDatesComparator;
 
 public class Strings {
 /**
@@ -18,7 +16,7 @@ public class Strings {
  * Use only class String and interface Comparator
  */
 	public static String[] sortStringsAsDates(String [] dates) {
-	String[] res = Arrays.copyOf(dates, dates.length);
+	String [] res = Arrays.copyOf(dates, dates.length);
 	Arrays.sort(res, new StringsDatesComparator());
 	return res;
 }

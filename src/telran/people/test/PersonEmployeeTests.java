@@ -92,7 +92,7 @@ class PersonEmployeeTests {
 	void wrongBirthYearTest () {
 		boolean flException = false;
 		try {
-			new SalesPerson(123, 2018, "sp@com",
+			new SalesPerson(123, 2018, "sp@sp.com",
 					1000, 100, 50);
 			
 		} catch (IllegalArgumentException e) {
@@ -108,65 +108,63 @@ class PersonEmployeeTests {
 		}
 	}
 	@Test
-	void wrongEmail () {
-		boolean isException = false;
+	void emailCheck() {
+		Person person = new Person(0, 0, null);
+		person.setEmail("abc-d@mail.com");
+		person.setEmail("abc.def@mail.com");
+		person.setEmail("abc@mail.com");
+		person.setEmail("abc_def@mail.com");
+		person.setEmail("tel-ran@tel-ran.co.il");
+		checkMailException(person, "abc-@mail.com");
+		checkMailException(person, "abc..def@mail.com");
+		checkMailException(person, ".abc@mail.com");
+		checkMailException(person, "abc#def@mail.com");
+		checkMailException(person, "abc.def@mail.c");
+		checkMailException(person, "abc.def@mail#archive.com");
+		checkMailException(person, "abc.def@mail");
+		checkMailException(person, "abc.def@mail..com");
+		
+	}
+
+	private void checkMailException(Person person, String email) {
+		boolean flException = false;
 		try {
-			new SalesPerson(123, 1997, "@com",
-					1000, 100, 50);
-			
+			person.setEmail(email);
 		} catch (IllegalArgumentException e) {
-			isException = true;
+			flException = true;
 			System.out.println(e.getMessage());
 		}
-		assertTrue(isException);
-		isException = false;
-		try {
-			new Employee(100, 1990, "misha@gmail.com", BASIC_SALARY);
-		} catch (IllegalArgumentException e) {
-			isException = true;
-			System.out.println(e.getMessage());
-		}
+		assertTrue(flException);
+		
 	}
 	@Test
-	void wrongBasicSalaru () {
-		boolean isException = false;
+	void checkBasicSalary() {
+		Employee empl = new Employee(ID, BIRTH_YEAR, "tel-ran@tel-ran.com", BASIC_SALARY);
+		boolean flException = false;
 		try {
-			new SalesPerson(123, 1997, "misha@com",
-					50, 100, 50);
-			
+			empl.setBasicSalary(0);
 		} catch (IllegalArgumentException e) {
-			isException = true;
+			flException = true;
 			System.out.println(e.getMessage());
 		}
-		assertTrue(isException);
-		isException = false;
-		try {
-			new Employee(100, 1990, "misha@gmail.com", BASIC_SALARY);
-		} catch (IllegalArgumentException e) {
-			isException = true;
-			System.out.println(e.getMessage());
-		}
-		assertFalse(isException);
+		assertTrue(flException);
 	}
 	@Test
-	void wrongPercentPay () {
-		boolean isException = false;
-		try {
-			new SalesPerson(123, 1997, "misha@com",
-					1000, 100, 300);
-			
-		} catch (IllegalArgumentException e) {
-			isException = true;
-			System.out.println(e.getMessage());
-		}
-		assertTrue(isException);
-		isException = false;
-		try {
-			new SalesPerson(100, 1990, "misha@gmail.com", BASIC_SALARY,ANOTHER_SALES, ANOTHER_PERCENT_PAY);
-		} catch (IllegalArgumentException e) {
-			isException = true;
-			System.out.println(e.getMessage());
-		}
-		assertFalse(isException);
+	void percentPayCheck() {
+		SalesPerson sp = new SalesPerson(ID, BIRTH_YEAR, ANOTHER_EMAIL, BASIC_SALARY, ANOTHER_SALES, ANOTHER_PERCENT_PAY);
+		percentPayExceptionCheck(sp, -10);
+		percentPayExceptionCheck(sp, 110);
 	}
+
+	private void percentPayExceptionCheck(SalesPerson sp, int percent) {
+		boolean flException = false;
+		try {
+			sp.setPercentPay(percent);
+		} catch (IllegalArgumentException e) {
+			flException = true;
+			System.out.println(e.getMessage());
+		}
+		assertTrue(flException);
+	}
+
 }
