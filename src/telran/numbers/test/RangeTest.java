@@ -32,7 +32,6 @@ class RangeTest {
 	}
 	@Test
 	void iterablePredicateTest() {
-		//Test for HW #12
 		int expected[] = {2};
 		range.setPredicate(new EvenNumbersPredicate());
 		int actual[] = getActualArray(1);

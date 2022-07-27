@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 public class Range implements Iterable<Integer> {
 
-	// closed range
 	private int min; // inclusive
 	private int max; // inclusive
 	private Predicate<Integer> predicate;
@@ -20,34 +19,24 @@ public class Range implements Iterable<Integer> {
 	}
 
 	private class RangeIterator implements Iterator<Integer> {
-		// If predicate == null all range numbers should be iterated
-		int current = predicate == null ? min : getFirstCurrent(); // TODO update method for iterating only numbers
-																	// matching the predicate
-
+		int current = predicate == null ? min : getFirstCurrent(); 
 		@Override
 		public boolean hasNext() {
-			// TODO
-			// update method for iterating only numbers matching the predicate
 			int lastCurrent = predicate == null ? max : getLastCurrent();
 			return current <= lastCurrent;
 		}
-
 		private int getLastCurrent() {
 			int current = max;
 			while (!predicate.test(current)) {
 				current--;
 			}
-			;
 			return current;
 		}
-
 		private int getFirstCurrent() {
 			int current = min;
 			while (!predicate.test(current)) {
 				current++;
 			}
-			;
-			// System.out.println(current);
 			return current;
 		}
 
@@ -56,8 +45,6 @@ public class Range implements Iterable<Integer> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			// TODO
-			// update method for iterating only numbers matching the predicate
 			if (predicate != null) {
 				while (!predicate.test(current)) {
 					current++;
@@ -65,7 +52,6 @@ public class Range implements Iterable<Integer> {
 			}
 			return current++;
 		}
-
 	}
 
 	public Range(int min, int max) {
