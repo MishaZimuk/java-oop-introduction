@@ -8,47 +8,18 @@ public class Range implements Iterable<Integer> {
 
 	private int min; // inclusive
 	private int max; // inclusive
-	private Predicate<Integer> predicate;
-
-	public Predicate<Integer> getPredicate() {
-		return predicate;
-	}
-
-	public void setPredicate(Predicate<Integer> predicate) {
-		this.predicate = predicate;
-	}
 
 	private class RangeIterator implements Iterator<Integer> {
-		int current = predicate == null ? min : getFirstCurrent(); 
+		int current = min; 
 		@Override
 		public boolean hasNext() {
-			int lastCurrent = predicate == null ? max : getLastCurrent();
-			return current <= lastCurrent;
-		}
-		private int getLastCurrent() {
-			int current = max;
-			while (!predicate.test(current)) {
-				current--;
-			}
-			return current;
-		}
-		private int getFirstCurrent() {
-			int current = min;
-			while (!predicate.test(current)) {
-				current++;
-			}
-			return current;
+			return current <= max;
 		}
 
 		@Override
 		public Integer next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
-			}
-			if (predicate != null) {
-				while (!predicate.test(current)) {
-					current++;
-				}
 			}
 			return current++;
 		}

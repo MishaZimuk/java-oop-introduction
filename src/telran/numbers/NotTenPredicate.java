@@ -2,12 +2,11 @@ package telran.numbers;
 
 import java.util.function.Predicate;
 
-public class EvenNumbersPredicate implements Predicate<Integer> {
+public class NotTenPredicate implements Predicate<Integer> {
 
 	@Override
 	public boolean test(Integer t) {
-		
-		return t % 2 == 0;
+		return t!=10;
 	}
 
 }
