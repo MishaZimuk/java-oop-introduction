@@ -12,8 +12,6 @@ public class FilteredIterator<T> implements Iterator<T> {
 			this.filter = filter;
 		} 
 		T current; 
-		boolean isStop=true;
-		boolean isStop1 = true;
 		
 		@Override
 		public boolean hasNext() {
