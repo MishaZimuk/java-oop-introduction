@@ -17,8 +17,6 @@ public class FilteredIterator<T> implements Iterator<T> {
 		public boolean hasNext() {
 			return srcIterator.hasNext();
 		}
-		T cur;
-		boolean res = true;
 		@Override
 		public T next() {
 			if (!hasNext()) {
